@@ -3,6 +3,7 @@ package e1;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class LogicTest {
     private static final int SIZE = 5;
@@ -12,6 +13,8 @@ public class LogicTest {
     private static final int KNIGHT_MOVEMENT_COLUMN = 3;
     private static final int PAWN_ROW = 4;
     private static final int PAWN_COLUMN = 2;
+    public static final int ROW_OUT_OF_BOUND = 2;
+    public static final int COLUMN_OUT_OF_BOUND = -1;
     private Logics logic ;
 
     @BeforeEach
@@ -35,7 +38,10 @@ public class LogicTest {
         Assertions.assertTrue(this.logic.hit(PAWN_ROW, PAWN_COLUMN));
     }
 
-
+    @Test
+    void testOutOfBound(){
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> this.logic.hit(ROW_OUT_OF_BOUND, COLUMN_OUT_OF_BOUND) );
+    }
     
 
 }
