@@ -23,32 +23,29 @@ public class InitializationStrategyTest {
 
     @Test
     void checkDefinedStrategyOk(){
-        Pair<Integer, Integer> piece1 = new Pair<>(PIECE_1_ROW,PIECE_1_COLUMN);
-        Pair<Integer, Integer> piece2 = new Pair<>(PIECE_2_ROW,PIECE_2_COLUMN);
+        Pair<Integer, Integer> piece1 = new Pair<>(PIECE_1_ROW, PIECE_1_COLUMN);
+        Pair<Integer, Integer> piece2 = new Pair<>(PIECE_2_ROW, PIECE_2_COLUMN);
         Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = new Pair<>(piece1,piece2);
-        this.strategy = new DefinedInitializatonStrategy(SIZE);
-        Assertions.assertEquals(placement, this.strategy.place(Optional.of(placement)));
+        this.strategy = new DefinedInitializatonStrategy(SIZE, PIECE_1_ROW, PIECE_1_COLUMN, PIECE_2_ROW, PIECE_2_COLUMN);
+        Assertions.assertEquals(placement, this.strategy.place());
     }
 
     @Test
     void checkDefinedStrategyOutOfBound(){
-        Pair<Integer, Integer> piece1 = new Pair<>(PIECE_1_INVALID_ROW,PIECE_1_INVALID_COLUMN);
-        Pair<Integer, Integer> piece2 = new Pair<>(PIECE_2_INVALID_ROW,PIECE_2_INVALID_COLUMN);
-        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = new Pair<>(piece1,piece2);
-        this.strategy = new DefinedInitializatonStrategy(SIZE);
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> this.strategy.place(Optional.of(placement)));
+        this.strategy = new DefinedInitializatonStrategy(SIZE, PIECE_1_INVALID_ROW, PIECE_1_INVALID_COLUMN, PIECE_2_INVALID_ROW, PIECE_2_INVALID_COLUMN);
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> this.strategy.place());
     }
 
     @Test
     void checkRandomStrategyNotEquals(){
         this.strategy = new RandomInitializatonStrategy(SIZE);
-        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = this.strategy.place(Optional.empty());
+        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = this.strategy.place();
         Assertions.assertNotEquals(placement.getX(), placement.getY());
     }
     @Test
     void checkRandomStrategyOutOfBound(){
         this.strategy = new RandomInitializatonStrategy(SIZE);
-        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = this.strategy.place(Optional.empty());
+        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = this.strategy.place();
         int value = placement.getX().getX();
         Assertions.assertFalse(value < 0 || value >= SIZE);
         value = placement.getX().getY();

@@ -11,7 +11,7 @@ public class RandomInitializatonStrategy implements InitializationStrategy {
     }
 
     @Override
-    public Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> place(Optional<Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> positions) {
+    public Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> place() {
 
         Pair<Integer,Integer> pos1 = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
         Pair<Integer,Integer> pos2;
