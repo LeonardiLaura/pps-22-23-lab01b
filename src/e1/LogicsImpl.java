@@ -43,12 +43,6 @@ public class LogicsImpl implements Logics {
 			this.knight = new Pair<>(row,col);
 			return this.pawn.equals(this.knight);
 		}
-/*
-		int x = row-this.knight.getX();
-		int y = col-this.knight.getY();
-		if (x!=0 && y!=0 && Math.abs(x)+Math.abs(y)==3) {
-
-		}*/
 		return false;
 	}
 
