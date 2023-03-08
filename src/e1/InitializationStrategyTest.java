@@ -12,6 +12,11 @@ public class InitializationStrategyTest {
     private static final int PIECE_1_COLUMN = 1;
     private static final int PIECE_2_ROW = 4;
     private static final int PIECE_2_COLUMN = 2;
+
+    private static final int PIECE_1_INVALID_ROW = -1;
+    private static final int PIECE_1_INVALID_COLUMN = -2;
+    private static final int PIECE_2_INVALID_ROW = 5;
+    private static final int PIECE_2_INVALID_COLUMN = 7;
     private static final int SIZE = 5;
     private InitializationStrategy strategy;
 
@@ -25,4 +30,12 @@ public class InitializationStrategyTest {
         Assertions.assertEquals(placement, this.strategy.place(Optional.of(placement)));
     }
 
+    @Test
+    void checkDefinedStrategyOutOfBound(){
+        Pair<Integer, Integer> piece1 = new Pair<>(PIECE_1_INVALID_ROW,PIECE_1_INVALID_COLUMN);
+        Pair<Integer, Integer> piece2 = new Pair<>(PIECE_2_INVALID_ROW,PIECE_2_INVALID_COLUMN);
+        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = new Pair<>(piece1,piece2);
+        this.strategy = new DefinedInitializatonStrategy(SIZE);
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> this.strategy.place(Optional.of(placement)));
+    }
 }
