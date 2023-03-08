@@ -5,21 +5,26 @@ import java.util.*;
 public class LogicsImpl implements Logics {
 	
 	private final Pair<Integer,Integer> pawn;
+	private final PieceMovementStrategy strategy;
 	private Pair<Integer,Integer> knight;
 	private final Random random = new Random();
 	private final int size;
 	 
     public LogicsImpl(int size){
-    	this.size = size;
+		this.strategy = new KnightMovementStrategy();
+		this.size = size;
         this.pawn = this.randomEmptyPosition();
         this.knight = this.randomEmptyPosition();	
     }
 
-	public LogicsImpl(int size, int knightRow, int knightColumn, int pawnRow, int pawnColumn) {
+	public LogicsImpl(int size, int knightRow, int knightColumn, int pawnRow, int pawnColumn, PieceMovementStrategy strategy) {
 		this.size = size;
+		this.strategy = strategy;
 		this.pawn = new Pair<>(pawnRow, pawnColumn);
 		this.knight =  new Pair<>(knightRow, knightColumn);
 	}
+
+
 
 	private final Pair<Integer,Integer> randomEmptyPosition(){
     	Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
@@ -33,12 +38,17 @@ public class LogicsImpl implements Logics {
 			throw new IndexOutOfBoundsException();
 		}
 		// Below a compact way to express allowed moves for the knight
-		int x = row-this.knight.getX();
-		int y = col-this.knight.getY();
-		if (x!=0 && y!=0 && Math.abs(x)+Math.abs(y)==3) {
+
+		if(this.strategy.checkMovement(this.knight.getX(), this.knight.getY(), row,col)){
 			this.knight = new Pair<>(row,col);
 			return this.pawn.equals(this.knight);
 		}
+/*
+		int x = row-this.knight.getX();
+		int y = col-this.knight.getY();
+		if (x!=0 && y!=0 && Math.abs(x)+Math.abs(y)==3) {
+
+		}*/
 		return false;
 	}
 

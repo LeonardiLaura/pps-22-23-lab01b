@@ -20,7 +20,8 @@ public class LogicTest {
 
     @BeforeEach
     void beforeEach(){
-        this.logic = new LogicsImpl(SIZE, KNIGHT_ROW, KNIGHT_COLUMN, PAWN_ROW, PAWN_COLUMN);
+        PieceMovementStrategy strategy = new KnightMovementStrategy();
+        this.logic = new LogicsImpl(SIZE, KNIGHT_ROW, KNIGHT_COLUMN, PAWN_ROW, PAWN_COLUMN, strategy);
     }
 
     @Test
