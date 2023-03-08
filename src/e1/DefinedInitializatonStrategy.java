@@ -22,7 +22,7 @@ public class DefinedInitializatonStrategy implements InitializationStrategy {
                 this.isOutOfBound(x2) || this.isOutOfBound(y2) ) {
             throw new IndexOutOfBoundsException();
         } else if (this.x1 == this.x2 && this.y1 == this.y2) {
-            throw new IllegalArgumentException();
+            throw new RuntimeException();
         }
         return new Pair<>(new Pair<>(x1,y1), new Pair<>(x2, y2));
     }
