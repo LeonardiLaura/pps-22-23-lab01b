@@ -8,7 +8,6 @@ public class LogicsImpl implements Logics {
 	private final PieceMovementStrategy movementStrategy;
 	private final InitializationStrategy initializationStrategy;
 	private Pair<Integer,Integer> knight;
-	private final Random random = new Random();
 	private final int size;
 	 
     public LogicsImpl(int size){
