@@ -14,7 +14,7 @@ public class LogicsImpl implements Logics {
 		this.movementStrategy = new KnightMovementStrategy();
 		this.size = size;
         this.pawn = this.randomEmptyPosition();
-        this.knight = this.randomEmptyPosition();	
+        this.knight = this.randomEmptyPosition();
     }
 
 	public LogicsImpl(int size, int knightRow, int knightColumn, int pawnRow, int pawnColumn, PieceMovementStrategy movementStrategy) {
