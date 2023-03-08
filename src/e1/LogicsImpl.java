@@ -5,21 +5,21 @@ import java.util.*;
 public class LogicsImpl implements Logics {
 	
 	private final Pair<Integer,Integer> pawn;
-	private final PieceMovementStrategy strategy;
+	private final PieceMovementStrategy movementStrategy;
 	private Pair<Integer,Integer> knight;
 	private final Random random = new Random();
 	private final int size;
 	 
     public LogicsImpl(int size){
-		this.strategy = new KnightMovementStrategy();
+		this.movementStrategy = new KnightMovementStrategy();
 		this.size = size;
         this.pawn = this.randomEmptyPosition();
         this.knight = this.randomEmptyPosition();	
     }
 
-	public LogicsImpl(int size, int knightRow, int knightColumn, int pawnRow, int pawnColumn, PieceMovementStrategy strategy) {
+	public LogicsImpl(int size, int knightRow, int knightColumn, int pawnRow, int pawnColumn, PieceMovementStrategy movementStrategy) {
 		this.size = size;
-		this.strategy = strategy;
+		this.movementStrategy = movementStrategy;
 		this.pawn = new Pair<>(pawnRow, pawnColumn);
 		this.knight =  new Pair<>(knightRow, knightColumn);
 	}
@@ -39,7 +39,7 @@ public class LogicsImpl implements Logics {
 		}
 		// Below a compact way to express allowed moves for the knight
 
-		if(this.strategy.checkMovement(this.knight.getX(), this.knight.getY(), row,col)){
+		if(this.movementStrategy.checkMovement(this.knight.getX(), this.knight.getY(), row,col)){
 			this.knight = new Pair<>(row,col);
 			return this.pawn.equals(this.knight);
 		}
