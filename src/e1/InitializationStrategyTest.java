@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 public class InitializationStrategyTest {
-
-
+    
     private static final int PIECE_1_ROW = 1;
     private static final int PIECE_1_COLUMN = 1;
     private static final int PIECE_2_ROW = 4;
@@ -34,6 +33,12 @@ public class InitializationStrategyTest {
     void checkDefinedStrategyOutOfBound(){
         this.strategy = new DefinedInitializatonStrategy(SIZE, PIECE_1_INVALID_ROW, PIECE_1_INVALID_COLUMN, PIECE_2_INVALID_ROW, PIECE_2_INVALID_COLUMN);
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> this.strategy.place());
+    }
+
+    @Test
+    void checkDefinedStrategyNotEquals(){
+        this.strategy = new DefinedInitializatonStrategy(SIZE, PIECE_1_ROW, PIECE_1_COLUMN, PIECE_1_ROW, PIECE_1_COLUMN);
+        Assertions.assertThrows(Exception.class, () -> this.strategy.place());
     }
 
     @Test
