@@ -6,6 +6,7 @@ public class LogicsImpl implements Logics {
 	
 	private final Pair<Integer,Integer> pawn;
 	private final PieceMovementStrategy movementStrategy;
+	private final InitializationStrategy initializationStrategy;
 	private Pair<Integer,Integer> knight;
 	private final Random random = new Random();
 	private final int size;
@@ -13,25 +14,21 @@ public class LogicsImpl implements Logics {
     public LogicsImpl(int size){
 		this.movementStrategy = new KnightMovementStrategy();
 		this.size = size;
-        this.pawn = this.randomEmptyPosition();
-        this.knight = this.randomEmptyPosition();
+		this.initializationStrategy = new RandomInitializatonStrategy(this.size);
+		Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> placement = this.initializationStrategy.place();
+		this.knight = placement.getX();
+		this.pawn = placement.getY();
     }
 
 	public LogicsImpl(int size, int knightRow, int knightColumn, int pawnRow, int pawnColumn, PieceMovementStrategy movementStrategy) {
 		this.size = size;
 		this.movementStrategy = movementStrategy;
-		this.pawn = new Pair<>(pawnRow, pawnColumn);
-		this.knight =  new Pair<>(knightRow, knightColumn);
+		this.initializationStrategy = new DefinedInitializatonStrategy(this.size, knightRow, knightColumn, pawnRow, pawnColumn);
+		Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> placement = this.initializationStrategy.place();
+		this.knight = placement.getX();
+		this.pawn = placement.getY();
 	}
 
-
-
-	private final Pair<Integer,Integer> randomEmptyPosition(){
-    	Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
-    	// the recursive call below prevents clash with an existing pawn
-    	return this.pawn!=null && this.pawn.equals(pos) ? randomEmptyPosition() : pos;
-    }
-    
 	@Override
 	public boolean hit(int row, int col) {
 		if (row<0 || col<0 || row >= this.size || col >= this.size) {
