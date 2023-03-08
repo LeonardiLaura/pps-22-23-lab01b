@@ -38,4 +38,25 @@ public class InitializationStrategyTest {
         this.strategy = new DefinedInitializatonStrategy(SIZE);
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> this.strategy.place(Optional.of(placement)));
     }
+
+    @Test
+    void checkRandomStrategyNotEquals(){
+        this.strategy = new RandomInitializatonStrategy(SIZE);
+        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = this.strategy.place(Optional.empty());
+        Assertions.assertNotEquals(placement.getX(), placement.getY());
+    }
+    @Test
+    void checkRandomStrategyOutOfBound(){
+        this.strategy = new RandomInitializatonStrategy(SIZE);
+        Pair<Pair<Integer,Integer>,Pair<Integer,Integer>> placement = this.strategy.place(Optional.empty());
+        int value = placement.getX().getX();
+        Assertions.assertFalse(value < 0 || value >= SIZE);
+        value = placement.getX().getY();
+        Assertions.assertFalse(value < 0 || value >= SIZE);
+        value = placement.getY().getX();
+        Assertions.assertFalse(value < 0 || value >= SIZE);
+        value = placement.getY().getY();
+        Assertions.assertFalse(value < 0 || value >= SIZE);
+
+    }
 }
